@@ -7,36 +7,64 @@ import javax.swing.JOptionPane;
 public class count {
     public static void main( String[ ] args ) throws Exception {
         Scanner sc=new Scanner(System.in);
-        File file =new File(str)
-//        String str = JOptionPane.showInputDialog("请输入字符串(例如:text6.txt)：");
-//        File file = new File(str);
-//        FileReader reader = new FileReader(file);
-//        int length = (int)file.length();
-//        char[] chars = new char[length];
-//        reader.read(chars);
-//        reader.close();
-//        String s = String.valueOf(chars);
-//
-//        int count = 0;
-//        int n = chars.length;
-//        for(int i = 0; i < n ; i++)
-//        {
-//            if(chars[i] >= 'a' && chars[i] <= 'z')
-//            {
-//                count ++;
-//            }
-//        }
-//
-//        String[ ] words = s.replaceAll( "[^a-zA-Z]+", " " ).trim( ).split( " " );
-//
-//        if ( words.length > 0 ) {
-//            TreeSet<Integer> lengths = new TreeSet<Integer>( );
-//
-//            for ( String word: words )
-//                lengths.add( word.length( ) );
-//            JOptionPane.showMessageDialog(null, "字符数:"+String.valueOf(count) +"\n"+"单词数:"+String.valueOf(words.length));
-//        }
-//        else
-//            JOptionPane.showMessageDialog(null, "字符数:0"+"\n"+"单词数:0");
-    }
+
+String st=sc.nextLine();
+        String[] arr=st.split(" ");
+        String str=arr[0];     //控制参数
+        String filename=arr[1];//文本文件名称
+
+        File dir=new File("src/test");//dir为执行程序所在目录
+        File[]files=dir.listFiles();
+        File file = null;     //文本所在地址
+
+        for(File filed :files)  //根据文本名称检索文件并返回地址
+        {
+            if(filed.isFile() && filename.equals(filed.getName())){
+                file=filed.getAbsoluteFile();
+                break;
+            }
+        }
+
+        FileReader reader =new FileReader(file);
+        int len =(int)file.length();
+        char[] ch=new char[len];
+        reader.read(ch);
+        reader.close();
+        String string=String.valueOf(ch);//将数组转化为字符串
+        int count = 0;
+        int n = ch.length;
+        if(str.equals("-c")){
+            for(int i = 0; i < n ; i++)
+            {
+                if((ch[i] >= 'a' && ch[i] <= 'z')||ch[i]==' '||ch[i]=='\t'||ch[i]=='\n'|| (ch[i] >= '0' && ch[i] <= '9'))
+                {
+                    count++;
+                }
+            }
+            System.out.println("字符数"+count);
+        }else if(str.equals("-w")){
+            string=string.trim();
+            String regex = "\\s+";
+            string = string.replaceAll(regex, ",");
+            String[] arr1 = string.split(",");
+            StringBuilder sb1 = new StringBuilder();
+            int count1=1;
+            for (int i = 0 ; i < arr1.length ; i++) {
+                String s = arr1[i].trim();
+                if (s!= null && !s.equals("")) {
+                    sb1.append(s);
+                    if (i != arr1.length-1) {
+                        sb1.append(",");
+                    }
+                }
+            }
+            String sb2=sb1.toString();
+            String[] arr2 = sb2.split(",");
+            count1=arr2.length;
+
+
+            System.out.println("单词数"+count1);
+        }
+
+}
 }
