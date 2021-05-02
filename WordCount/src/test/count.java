@@ -45,21 +45,21 @@ String st=sc.nextLine();
         }else if(str.equals("-w")){
             string=string.trim();
             String regex = "\\s+";
-            string = string.replaceAll(regex, ",");
-            String[] arr1 = string.split(",");
+            string = string.replaceAll(regex, ",");//通过正则表达式把中间的空格转化为逗号
+            String[] arr1 = string.split(",");//用逗号把字符串分割为数组
             StringBuilder sb1 = new StringBuilder();
             int count1=1;
             for (int i = 0 ; i < arr1.length ; i++) {
                 String s = arr1[i].trim();
                 if (s!= null && !s.equals("")) {
-                    sb1.append(s);
+                    sb1.append(s);//如果该数组不为空，则生成到新字符串里
                     if (i != arr1.length-1) {
-                        sb1.append(",");
+                        sb1.append(",");//如果不是最后一个数组，就在数组后加逗号
                     }
                 }
             }
             String sb2=sb1.toString();
-            String[] arr2 = sb2.split(",");
+            String[] arr2 = sb2.split(",");//最后将新生成的字符串用逗号相隔，数组的个数就是单词的个数
             count1=arr2.length;
 
 
