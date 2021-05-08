@@ -6,7 +6,7 @@
 int main(int argc, char *argv[]) {
 	FILE *f;
 	char ch;
-	char ch1 = ' ';
+	char ch1 = ' ';//必须是空格，否则第一个不是空格的情况会报错
 	int count = 0;
 	if (argc != 3) {
 		printf("请输入文件路径");
@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
 			printf("字符数为%d", count);
 		} else {
 			while ((ch = getc(f)) != EOF) {
+				//判断是否前一个字符等于空格或者逗号，本字符是否属于字符
 				if ((ch >= 33 && ch <= 43) || (ch >= 45 && ch <= 126) && ((ch1 == ' ') || (ch1 == ','))) {
 					count++;
 				}
